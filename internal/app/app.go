@@ -15,11 +15,14 @@ func showMenu(options []string) {
 	for i, option := range options {
 		fmt.Printf("%d. %s\n", i+1, option)
 	}
-	fmt.Println(fmt.Printf("%d. Exit", len(options)+1))
+	fmt.Printf("%d. Exit\n", len(options)+1)
 }
 
-func getUserInput() string {
-	return ""
+func getUserInput() int {
+	var user_input int
+	fmt.Print("Enter choice: ")
+	fmt.Scanln(&user_input)
+	return user_input
 }
 
 func showTasks(tasks []Task) {
@@ -35,7 +38,6 @@ func showTasks(tasks []Task) {
 		}
 		fmt.Printf("%d. [%s] %s\n", i+1, status, task.Text)
 	}
-
 }
 
 func Run() {
@@ -51,15 +53,15 @@ func Run() {
 		showMenu(options)
 		userOption := getUserInput()
 		switch userOption {
-		case "1":
+		case 1:
 			showTasks(tasks)
-		case "2":
+		case 2:
 			// Add Task
-		case "3":
+		case 3:
 			// Mark Task as Complete
-		case "4":
+		case 4:
 			// Save Tasks to csv file.
-		case "5":
+		case 5:
 			fmt.Println("Exiting the To-Do application.")
 			return
 		default:
