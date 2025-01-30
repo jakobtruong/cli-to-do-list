@@ -2,6 +2,7 @@ package app
 
 import (
 	"fmt"
+	"strings"
 )
 
 type Task struct {
@@ -9,13 +10,17 @@ type Task struct {
 	Completed bool
 }
 
-// Prints out all available options to user
-func showMenu(options []string) {
-	fmt.Println("\nMenu:")
+// Returns menu showing all available options to user
+// Using string.Builder here to efficiently build strings using write methods, minimizing memory copying.
+func showMenu(options []string) string {
+	var result strings.Builder
+	result.WriteString("\nMenu:\n")
 	for i, option := range options {
-		fmt.Printf("%d. %s\n", i+1, option)
+		fmt.Fprintf(&result, "%d. %s\n", i+1, option)
 	}
-	fmt.Printf("%d. Exit\n", len(options)+1)
+	fmt.Fprintf(&result, "%d. Exit\n\n", len(options)+1)
+
+	return result.String()
 }
 
 func getUserInput() int {
@@ -40,6 +45,10 @@ func showTasks(tasks []Task) {
 	}
 }
 
+func (tasks *Task) addTasks(task Task) {
+
+}
+
 func Run() {
 	tasks := []Task{}
 	options := []string{
@@ -50,13 +59,14 @@ func Run() {
 	}
 	// while loop
 	for {
-		showMenu(options)
+		print(showMenu(options))
 		userOption := getUserInput()
 		switch userOption {
 		case 1:
 			showTasks(tasks)
 		case 2:
 			// Add Task
+
 		case 3:
 			// Mark Task as Complete
 		case 4:
