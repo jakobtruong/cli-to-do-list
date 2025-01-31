@@ -23,7 +23,7 @@ func showMenu(options []string) string {
 	return result.String()
 }
 
-func getUserInput() int {
+func isValidOption(user_input string, tasks []*Task) bool {
 	var user_input int
 	fmt.Print("Enter choice: ")
 	fmt.Scanln(&user_input)
@@ -59,8 +59,14 @@ func Run() {
 	}
 	// while loop
 	for {
-		print(showMenu(options))
-		userOption := getUserInput()
+		var userOption int = 0
+		for {
+			print(showMenu(options))
+			var user_input string
+			fmt.Print("Enter choice: ")
+			fmt.Scanln(&user_input)
+			if isValidOption(user_input)
+		}
 		switch userOption {
 		case 1:
 			showTasks(tasks)
