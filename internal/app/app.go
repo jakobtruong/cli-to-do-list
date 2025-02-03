@@ -2,6 +2,7 @@ package app
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -23,11 +24,16 @@ func showMenu(options []string) string {
 	return result.String()
 }
 
-func isValidOption(user_input string, tasks []*Task) bool {
-	var user_input int
-	fmt.Print("Enter choice: ")
-	fmt.Scanln(&user_input)
-	return user_input
+// Returns valid int if user_input is valid or -1 if not valid
+func getOption(user_input string, options []string) int {
+	i, err := strconv.Atoi(user_input)
+	if err != nil {
+		return -1
+	}
+	if i <= 0 || i > len(options) {
+		return -1
+	}
+	return i
 }
 
 func showTasks(tasks []Task) {
@@ -65,7 +71,10 @@ func Run() {
 			var user_input string
 			fmt.Print("Enter choice: ")
 			fmt.Scanln(&user_input)
-			if isValidOption(user_input)
+			userOption = getOption(user_input, options)
+			if userOption != -1 {
+				break
+			}
 		}
 		switch userOption {
 		case 1:
