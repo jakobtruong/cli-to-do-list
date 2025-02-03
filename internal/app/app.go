@@ -11,6 +11,13 @@ type Task struct {
 	Completed bool
 }
 
+var Options = []string{
+	"Show Tasks",
+	"Add Task",
+	"Mark Task as Completed",
+	"Save Tasks to File",
+}
+
 // Returns menu showing all available options to user
 // Using string.Builder here to efficiently build strings using write methods, minimizing memory copying.
 func showMenu(options []string) string {
@@ -57,21 +64,15 @@ func (tasks *Task) addTasks(task Task) {
 
 func Run() {
 	tasks := []Task{}
-	options := []string{
-		"Show Tasks",
-		"Add Task",
-		"Mark Task as Completed",
-		"Save Tasks to File",
-	}
 	// while loop
 	for {
 		var userOption int = 0
 		for {
-			print(showMenu(options))
+			print(showMenu(Options))
 			var user_input string
 			fmt.Print("Enter choice: ")
 			fmt.Scanln(&user_input)
-			userOption = getOption(user_input, options)
+			userOption = getOption(user_input, Options)
 			if userOption != -1 {
 				break
 			}
