@@ -11,7 +11,7 @@ type Task struct {
 	Completed bool
 }
 
-var Options = []string{
+var options = []string{
 	"Show Tasks",
 	"Add Task",
 	"Mark Task as Completed",
@@ -20,7 +20,7 @@ var Options = []string{
 
 // Returns menu showing all available options to user
 // Using string.Builder here to efficiently build strings using write methods, minimizing memory copying.
-func showMenu(options []string) string {
+func getMenu(options []string) string {
 	var result strings.Builder
 	result.WriteString("\nMenu:\n")
 	for i, option := range options {
@@ -68,11 +68,11 @@ func Run() {
 	for {
 		var userOption int = 0
 		for {
-			print(showMenu(Options))
+			print(getMenu(options))
 			var user_input string
 			fmt.Print("Enter choice: ")
 			fmt.Scanln(&user_input)
-			userOption = getOption(user_input, Options)
+			userOption = getOption(user_input, options)
 			if userOption != -1 {
 				break
 			}
