@@ -1,6 +1,7 @@
 package app
 
 import (
+	"bytes"
 	"testing"
 )
 
@@ -56,6 +57,26 @@ func TestGetOption(t *testing.T) {
 			actual := getOption(tc.Input, options)
 			if actual != tc.Expected {
 				t.Errorf("Got: %q, Expected: %q", actual, tc.Expected)
+			}
+		})
+	}
+}
+
+func TestShowTasks(t *testing.T) {
+	cases := []struct {
+		Name     string
+		Input    []Task
+		Expected string
+	}{
+		{"Test Case #1", []Task{}, "No tasks to show\n"},
+	}
+
+	for _, tc := range cases {
+		t.Run(tc.Name, func(t *testing.T) {
+			var output bytes.Buffer
+			showTasks(&output, tc.Input)
+			if output.String() != tc.Expected {
+				t.Errorf("Got: %q, Expected: %q", output.String(), tc.Expected)
 			}
 		})
 	}

@@ -2,6 +2,8 @@ package app
 
 import (
 	"fmt"
+	"io"
+	"os"
 	"strconv"
 	"strings"
 )
@@ -43,19 +45,20 @@ func getOption(user_input string, options []string) int {
 	return i
 }
 
-func showTasks(tasks []Task) {
+func showTasks(w io.Writer, tasks []Task) {
 	if len(tasks) == 0 {
-		fmt.Println("No tasks to show")
+		fmt.Fprintln(w, "No tasks to show")
 		return
 	}
-	fmt.Println("Tasks:")
+	fmt.Fprintln(w, "Tasks:")
 	for i, task := range tasks {
 		status := " "
 		if task.Completed {
 			status = "x"
 		}
-		fmt.Printf("%d. [%s] %s\n", i+1, status, task.Text)
+		fmt.Fprintf(w, "%d. [%s] %s\n", i+1, status, task.Text)
 	}
+	return
 }
 
 func (tasks *Task) addTasks(task Task) {
@@ -79,7 +82,7 @@ func Run() {
 		}
 		switch userOption {
 		case 1:
-			showTasks(tasks)
+			showTasks(os.Stdout, tasks)
 		case 2:
 			// Add Task
 
