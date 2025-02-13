@@ -4,12 +4,14 @@ import (
 	"testing"
 )
 
-// var options = []string{
-// 	"Show Tasks",
-// 	"Add Task",
-// 	"Mark Task as Completed",
-// 	"Save Tasks to File",
-// }
+/*
+General Unit Test Workflow
+1.) Write a test
+2.) Make compiler pass
+3.) Run the test, see that it fails and check if error message is meaningful
+4.) Write enough code to make test pass
+5.) Refactor if needed
+*/
 
 func TestGetMenu(t *testing.T) {
 	cases := []struct {
@@ -31,7 +33,7 @@ func TestGetMenu(t *testing.T) {
 		t.Run(tc.Name, func(t *testing.T) {
 			actual := getMenu(options)
 			if actual != tc.Expected {
-				t.Errorf("Got: %v, Expected: %v", actual, tc.Expected)
+				t.Errorf("Got: %q, Expected: %q", actual, tc.Expected) // %q used here to wrap values in double quotes for clarity
 			}
 		})
 	}
@@ -53,7 +55,7 @@ func TestGetOption(t *testing.T) {
 		t.Run(tc.Name, func(t *testing.T) {
 			actual := getOption(tc.Input, options)
 			if actual != tc.Expected {
-				t.Errorf("Got: %v, Expected: %v", actual, tc.Expected)
+				t.Errorf("Got: %q, Expected: %q", actual, tc.Expected)
 			}
 		})
 	}
