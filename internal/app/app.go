@@ -49,16 +49,16 @@ func showTasks(w io.Writer, tasks []Task) {
 	if len(tasks) == 0 {
 		fmt.Fprintln(w, "No tasks to show")
 		return
-	}
-	fmt.Fprintln(w, "Tasks:")
-	for i, task := range tasks {
-		status := " "
-		if task.Completed {
-			status = "x"
+	} else {
+		fmt.Fprintln(w, "Tasks:")
+		for i, task := range tasks {
+			status := " "
+			if task.Completed {
+				status = "x"
+			}
+			fmt.Fprintf(w, "%d. [%s] %s\n", i+1, status, task.Text)
 		}
-		fmt.Fprintf(w, "%d. [%s] %s\n", i+1, status, task.Text)
 	}
-	return
 }
 
 func (tasks *Task) addTasks(task Task) {
